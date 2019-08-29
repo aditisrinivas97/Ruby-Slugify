@@ -42,7 +42,7 @@ class RubySlugify
 
         # If custom mapping is given, first substitute these key, value pairs
         unless @customMap.nil?
-            substituteChars(customMap)
+            substituteCustom(@customMap)
         end
 
         # Substitute all the common characters present in the default map
@@ -89,6 +89,17 @@ class RubySlugify
             if mapping.key?(@slugString[i])
                 @slugString[i] = mapping[@slugString[i]]
             end
+        end
+    end
+
+    # Substitutes the patterns in slugString with their mapped values given by the user
+    # Parameters :
+    #   1. mapping - The hashmap that contains the one to one mapping of character runs to be replaced
+    def substituteCustom(mapping)
+        mapping.each do |key, value|
+            find = key.to_s
+            replace = value.to_s
+            @slugString = @slugString.gsub(find, replace)
         end
     end
 
