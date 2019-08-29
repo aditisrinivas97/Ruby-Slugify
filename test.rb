@@ -19,3 +19,7 @@ newObj = RubySlugify.new("This & that", "en", nil, maxLength = 13)
 slug = newObj.createSlug()
 puts slug
 
+puts RubySlugify.isSlug("影師")
+puts RubySlugify.isSlug("This & that")
+puts RubySlugify.isSlug("sjjdj##d")
+puts RubySlugify.isSlug("sjj-dsf-d")

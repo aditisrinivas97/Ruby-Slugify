@@ -6,9 +6,9 @@ require 'stringex/unidecoder'
 class RubySlugify
     
     @inputString = nil
-    @language = nil
-    @maxLength = nil
-    @toLower = nil
+    @language = "en"
+    @maxLength = 100
+    @toLower = true
     @customMap = nil
     @slugString = nil
 
@@ -121,5 +121,18 @@ class RubySlugify
         # Remove leading '-' due to concatenation
         trimmedString = trimmedString.delete_prefix('-')
         return trimmedString
+    end
+
+    # Returns true if the given string is a slug. Can be invoked without an object.
+    # Parameters :
+    #   1. inputString - The string that is to be checked
+    # Returns : 
+    #   1. Boolean value (true / false) - If the string is a slug or not
+    def self.isSlug(inputString)
+        if inputString == "" || inputString.length > @maxLength || inputString[0] == '-' || inputString[0] == '_' || inputString[inputString.length - 1] == '-' || inputString[inputString.length - 1] == '_'
+            return false
+        else
+            return inputString.match(/[^a-zA-Z0-9\-\_]/).nil?
+        end
     end
 end
