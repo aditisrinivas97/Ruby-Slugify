@@ -1,0 +1,19 @@
+PATH
+  remote: .
+  specs:
+    ruby-slugify (0.0.1)
+      stringex
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    stringex (2.8.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ruby-slugify!
+
+BUNDLED WITH
+   2.0.2
