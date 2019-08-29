@@ -40,7 +40,7 @@ Specifying other languages can be done using ISO 2 Letter Language Codes. The fo
 diese-und-dass
 ```
 
-You can also prove a custom map
+You can also provide a custom map
 
 ```ruby
 > customMap = {
