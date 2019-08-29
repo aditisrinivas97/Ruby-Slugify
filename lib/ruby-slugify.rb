@@ -13,18 +13,17 @@ class RubySlugify
     @slugString = nil
 
     def initialize(inputString, language = "en", customMap = nil,  maxLength = 30, toLower = true)
-        
         # Initialise all the instance variables
         @inputString = inputString
         @maxLength = maxLength
         @toLower = toLower
         @customMap = customMap
 
-        # If the langauge is not supported use default as english
+        # If the language is not supported use default as english
         if $referenceTable.key?(language)
-            @langauge = language
+            @language = language
         else
-            @langauge = "en"
+            @language = "en"
         end
     end
 
@@ -38,8 +37,8 @@ class RubySlugify
         end
 
         # Substitute all the common characters present in the default map
-        substituteChars($default)
-
+        substituteChars($defaultMap)
+        
         # Substitute all the  characters present in the given language
         substituteChars($referenceTable[@language])
         
@@ -71,12 +70,15 @@ class RubySlugify
     end
 
     def substituteChars(mapping)
-        # for i in 0..@slugString.length
-        #     puts "#{@slugString[i]}"
-        # end
+        len = @slugString.length - 1
+        for i in 0..len
+            if mapping.key?(@slugString[i])
+                @slugString[i] = mapping[@slugString[i]]
+            end
+        end
     end
 
-    def trimString(longString, length)
+    # def trimString(longString, length)
 
-    end
+    # end
 end
