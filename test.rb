@@ -3,15 +3,19 @@
 require_relative "./lib/ruby-slugify"
 require "test/unit"
 
-# newObj = RubySlugify.new("-------______私はガラスを食べら  れますBBBB------", "de")
-# newObj.createSlug()
+newObj = RubySlugify.new("-------______私はガラスを食べら  れます------")
+slug = newObj.createSlug()
+puts slug 
 
 newObj = RubySlugify.new("影師")
-newObj.createSlug()
+slug = newObj.createSlug()
+puts slug
 
 newObj = RubySlugify.new("Diese & Dass", "de")
-newObj.createSlug()
+slug = newObj.createSlug()
+puts slug
 
-newObj = RubySlugify.new("This & that")
-newObj.createSlug()
+newObj = RubySlugify.new("This & that", "en", nil, maxLength = 13)
+slug = newObj.createSlug()
+puts slug
 

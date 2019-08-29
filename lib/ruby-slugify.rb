@@ -12,7 +12,14 @@ class RubySlugify
     @customMap = nil
     @slugString = nil
 
-    def initialize(inputString, language = "en", customMap = nil,  maxLength = 30, toLower = true)
+    # Initializes the object with all necessary instance variables
+    # Parameters : 
+    #   1. inputString - The string to be slugified
+    #   2. language - If any language translations are required. Available options : ["en", "es", "de", "nl", "gr", "el", "ell", "po", "fi"]. Default is 'en' or english
+    #   3, customMap - If any custom mappings are required i.e custom substituions for words in the slugString
+    #   4. maxLength - Limits the size of the slugified string. Default is 100 characters
+    #   5. toLower - Whether the slugified string needs to be lower cased. Default is true, i.e it is lower cased. 
+    def initialize(inputString, language = "en", customMap = nil,  maxLength = 100, toLower = true)
         # Initialise all the instance variables
         @inputString = inputString
         @maxLength = maxLength
@@ -27,6 +34,8 @@ class RubySlugify
         end
     end
 
+    # Creates the slugified string from the given input string
+    # Returns : slugified string
     def createSlug()
         # Strip leading and trailing spaces
         @slugString = @inputString.strip()
@@ -67,8 +76,13 @@ class RubySlugify
         if @slugString.length > @maxLength
             @slugString = trimString(@slugString, @maxLength)
         end
+        
+        @slugString
     end
 
+    # Substitutes the characters in slugString with their mapped values 
+    # Parameters :
+    #   1. mapping - The hashmap that contains the one to one mapping of characters to be replaced
     def substituteChars(mapping)
         len = @slugString.length - 1
         for i in 0..len
@@ -78,7 +92,34 @@ class RubySlugify
         end
     end
 
-    # def trimString(longString, length)
+    # Truncates a string if it is longer than a given length
+    # Parameters :
+    #   1. longString - the string that is to be truncated
+    #   2. mlen - maximum length of the string
+    # Returns :
+    #   1. Truncated string
+    def trimString(longString, mlen)
 
-    # end
+        # Split at '-' to obtain all the words in the slug
+        splitString = longString.split('-')
+
+        # If the first word is longer than maxLength, return the slice as the trimmed string
+        if splitString[0].length > mlen
+            return splitString[0][0..mlen-1]
+        end
+        
+        # Ensure the truncated version is below maxLength but has whole words in the slug
+        trimmedString = ''
+        for string in splitString
+            if string.length + trimmedString.length + 1 <= mlen 
+                trimmedString = trimmedString + '-' + string
+            else
+                break
+            end
+        end
+
+        # Remove leading '-' due to concatenation
+        trimmedString = trimmedString.delete_prefix('-')
+        return trimmedString
+    end
 end
